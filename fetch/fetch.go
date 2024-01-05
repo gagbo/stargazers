@@ -172,6 +172,9 @@ func doFetch(c *Context, url string, req *http.Request) (*http.Response, error) 
 	switch resp.StatusCode {
 	case 200:
 		// Success!
+		if resp.ContentLength <= 2 {
+			return nil, errors.New("Empty response received; backoff and retry")
+		}
 		if err := putCache(c, req, resp); err == nil {
 			return resp, nil
 		}
