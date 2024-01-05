@@ -181,6 +181,8 @@ func doFetch(c *Context, url string, req *http.Request) (*http.Response, error) 
 	case 202: // Accepted
 		// This is a weird one, but it's been returned by GitHub before.
 		err = errors.New("202 (Accepted) HTTP response; backoff and retry")
+	case 429:
+		fallthrough
 	case 403: // Forbidden...handle case of rate limit exception
 		if limitRem := resp.Header.Get("X-rateLimit-Remaining"); len(limitRem) > 0 {
 			var remaining, resetUnix int
