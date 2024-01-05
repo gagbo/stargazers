@@ -50,14 +50,14 @@ func RunFetch(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return err
 	}
-	log.Printf("fetching GitHub data for repository %s", Repo)
+	log.Printf("fetching GitHub data for repository %s\n", Repo)
 	fetchCtx := &fetch.Context{
 		Repo:     Repo,
 		Token:    token,
 		CacheDir: CacheDir,
 	}
 	if err := fetch.QueryAll(fetchCtx); err != nil {
-		log.Printf("failed to query stargazer data: %s", err)
+		log.Printf("failed to query stargazer data: %s\n", err)
 		return nil
 	}
 	return nil

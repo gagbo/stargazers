@@ -105,15 +105,15 @@ func fetchURL(c *Context, url string, value interface{}, refresh bool) (string, 
 				switch t := err.(type) {
 				case *rateLimitError:
 					// Sleep until the expiration of the rate limit regime (+ 1s for clock offsets).
-					log.Printf("%s", t)
+					log.Printf("%s\n", t)
 					time.Sleep(t.expiration())
 				case *httpError:
 					// For now, regard HTTP errors as permanent.
-					log.Printf("unable to fetch %q: %s", url, err)
+					log.Printf("unable to fetch %q: %s\n", url, err)
 					return "", nil
 				default:
 					// Retry with exponential backoff on random connection and networking errors.
-					log.Printf("%s", t)
+					log.Printf("%s\n", t)
 					backoff := int64((1 << i)) * 50000000 // nanoseconds, starting at 50ms
 					if backoff > 1000000000 {
 						backoff = 1000000000
@@ -123,7 +123,7 @@ func fetchURL(c *Context, url string, value interface{}, refresh bool) (string, 
 			}
 		}
 		if resp == nil {
-			log.Printf("unable to fetch %q", url)
+			log.Printf("unable to fetch %q\n", url)
 			return "", nil
 		}
 
@@ -150,7 +150,7 @@ func fetchURL(c *Context, url string, value interface{}, refresh bool) (string, 
 	if err != nil {
 		// In the event corruption of the cached entry was encountered, clear
 		// the entry and try again.
-		log.Printf("cache entry %q corrupted; removing and refetching", url)
+		log.Printf("cache entry %q corrupted; removing and refetching\n", url)
 		clearEntry(c, url)
 		return fetchURL(c, url, value, refresh)
 	}
@@ -164,7 +164,7 @@ func fetchURL(c *Context, url string, value interface{}, refresh bool) (string, 
 // cache on success. A rateLimitError is returned in the event that
 // the access token has exceeded its hourly limit.
 func doFetch(c *Context, url string, req *http.Request) (*http.Response, error) {
-	log.Printf("fetching %q...", url)
+	log.Printf("fetching %q...\n", url)
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return nil, err

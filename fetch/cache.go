@@ -47,7 +47,7 @@ func getCache(c *Context, req *http.Request) (*http.Response, error) {
 		}
 		return nil, err
 	}
-	log.Printf("found %q in response cache", req.URL.String())
+	log.Printf("found %q in response cache\n\n", req.URL.String())
 
 	return resp, err
 }
@@ -73,12 +73,12 @@ func putCache(c *Context, req *http.Request, resp *http.Response) error {
 		return err
 	}
 	f.Close()
-	log.Printf("wrote %q to response cache", req.URL.String())
+	log.Printf("wrote %q to response cache\n\n", req.URL.String())
 
 	// TODO(spencer): this sucks, but we must re-read the response as
 	// the body is closed during the call to resp.Write().
 	if readResp, err := readCachedResponse(filename, req); err != nil {
-		log.Printf("failed reading cached response: %s", err)
+		log.Printf("failed reading cached response: %s\n", err)
 		return err
 	} else {
 		resp.Body = readResp.Body

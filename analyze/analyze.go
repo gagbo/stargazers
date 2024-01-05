@@ -110,7 +110,7 @@ func RunAll(c *fetch.Context, sg []*fetch.Stargazer, rs map[string]*fetch.Repo) 
 // RunCumulativeStars creates a table of date and cumulative
 // star count for the provided stargazers.
 func RunCumulativeStars(c *fetch.Context, sg []*fetch.Stargazer) error {
-	log.Printf("running cumulative stars analysis")
+	log.Printf("running cumulative stars analysis\n")
 
 	// Open file and prepare.
 	f, err := createFile(c, "cumulative_stars.csv")
@@ -158,7 +158,7 @@ func RunCumulativeStars(c *fetch.Context, sg []*fetch.Stargazer) error {
 		}
 	}
 	w.Flush()
-	log.Printf("wrote cumulative stars analysis to %s", f.Name())
+	log.Printf("wrote cumulative stars analysis to %s\n", f.Name())
 
 	return nil
 }
@@ -166,7 +166,7 @@ func RunCumulativeStars(c *fetch.Context, sg []*fetch.Stargazer) error {
 // RunCorrelatedRepos creates a map from repo name to count of
 // repos for repo lists of each stargazer.
 func RunCorrelatedRepos(c *fetch.Context, listType string, sg []*fetch.Stargazer, rs map[string]*fetch.Repo) error {
-	log.Printf("running correlated starred repos analysis")
+	log.Printf("running correlated starred repos analysis\n")
 
 	// Open file and prepare.
 	f, err := createFile(c, fmt.Sprintf("correlated_%s_repos.csv", listType))
@@ -208,7 +208,7 @@ func RunCorrelatedRepos(c *fetch.Context, listType string, sg []*fetch.Stargazer
 		}
 	}
 	w.Flush()
-	log.Printf("wrote correlated %s repos analysis to %s", listType, f.Name())
+	log.Printf("wrote correlated %s repos analysis to %s\n", listType, f.Name())
 
 	// Open histogram file.
 	fHist, err := createFile(c, fmt.Sprintf("correlated_%s_repos_hist.csv", listType))
@@ -241,7 +241,7 @@ func RunCorrelatedRepos(c *fetch.Context, listType string, sg []*fetch.Stargazer
 		}
 	}
 	wHist.Flush()
-	log.Printf("wrote correlated %s repos histogram to %s", listType, fHist.Name())
+	log.Printf("wrote correlated %s repos histogram to %s\n", listType, fHist.Name())
 
 	return nil
 }
@@ -249,7 +249,7 @@ func RunCorrelatedRepos(c *fetch.Context, listType string, sg []*fetch.Stargazer
 // RunFollowers computes the size of follower networks, as well as
 // the count of shared followers.
 func RunFollowers(c *fetch.Context, sg []*fetch.Stargazer) error {
-	log.Printf("running followers analysis")
+	log.Printf("running followers analysis\n")
 
 	// Open file and prepare.
 	f, err := createFile(c, "followers.csv")
@@ -284,7 +284,7 @@ func RunFollowers(c *fetch.Context, sg []*fetch.Stargazer) error {
 		}
 	}
 	w.Flush()
-	log.Printf("wrote followers analysis to %s", f.Name())
+	log.Printf("wrote followers analysis to %s\n", f.Name())
 
 	return nil
 }
@@ -292,7 +292,7 @@ func RunFollowers(c *fetch.Context, sg []*fetch.Stargazer) error {
 // RunCommitters lists stargazers by commits to subscribed repos, from
 // most prolific committer to least.
 func RunCommitters(c *fetch.Context, sg []*fetch.Stargazer, rs map[string]*fetch.Repo) error {
-	log.Printf("running committers analysis")
+	log.Printf("running committers analysis\n")
 
 	// Open file and prepare.
 	f, err := createFile(c, "committers.csv")
@@ -320,7 +320,7 @@ func RunCommitters(c *fetch.Context, sg []*fetch.Stargazer, rs map[string]*fetch
 		}
 	}
 	w.Flush()
-	log.Printf("wrote committers analysis to %s", f.Name())
+	log.Printf("wrote committers analysis to %s\n", f.Name())
 
 	return nil
 }
@@ -328,7 +328,7 @@ func RunCommitters(c *fetch.Context, sg []*fetch.Stargazer, rs map[string]*fetch
 // RunCumulativeStars creates a table of date and cumulative
 // star count for the provided stargazers.
 func RunAttributesByTime(c *fetch.Context, sg []*fetch.Stargazer, rs map[string]*fetch.Repo) error {
-	log.Printf("running stargazer attributes by time analysis")
+	log.Printf("running stargazer attributes by time analysis\n")
 
 	// Open file and prepare.
 	f, err := createFile(c, "attributes_by_time.csv")
@@ -399,7 +399,7 @@ func RunAttributesByTime(c *fetch.Context, sg []*fetch.Stargazer, rs map[string]
 		}
 	}
 	w.Flush()
-	log.Printf("wrote stargazer attributes by time analysis to %s", f.Name())
+	log.Printf("wrote stargazer attributes by time analysis to %s\n", f.Name())
 
 	return nil
 }

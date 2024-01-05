@@ -41,13 +41,13 @@ func RunClear(cmd *cobra.Command, args []string) error {
 	if len(Repo) == 0 {
 		return errors.New("repository not specified; use --repo=:owner/:repo")
 	}
-	log.Printf("clearing GitHub API response cache for repository %s", Repo)
+	log.Printf("clearing GitHub API response cache for repository %s\n", Repo)
 	fetchCtx := &fetch.Context{
 		Repo:     Repo,
 		CacheDir: CacheDir,
 	}
 	if err := fetch.Clear(fetchCtx); err != nil {
-		log.Printf("failed to clear cached responses: %s", err)
+		log.Printf("failed to clear cached responses: %s\n", err)
 		return nil
 	}
 	return nil

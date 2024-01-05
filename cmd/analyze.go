@@ -51,19 +51,19 @@ func RunAnalyze(cmd *cobra.Command, args []string) error {
 	if len(Repo) == 0 {
 		return errors.New("repository not specified; use --repo=:owner/:repo")
 	}
-	log.Printf("fetching saved GitHub stargazer data for repository %s", Repo)
+	log.Printf("fetching saved GitHub stargazer data for repository %s\n", Repo)
 	fetchCtx := &fetch.Context{
 		Repo:     Repo,
 		CacheDir: CacheDir,
 	}
 	sg, rs, err := fetch.LoadState(fetchCtx)
 	if err != nil {
-		log.Printf("failed to load saved stargazer data: %s", err)
+		log.Printf("failed to load saved stargazer data: %s\n", err)
 		return nil
 	}
-	log.Printf("analyzing GitHub data for repository %s", Repo)
+	log.Printf("analyzing GitHub data for repository %s\n", Repo)
 	if err := analyze.RunAll(fetchCtx, sg, rs); err != nil {
-		log.Printf("failed to query stargazer data: %s", err)
+		log.Printf("failed to query stargazer data: %s\n", err)
 		return nil
 	}
 	return nil
